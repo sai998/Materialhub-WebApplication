@@ -1,0 +1,98 @@
+{% extends 'client/home_index.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Order Summary</title>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  body {
+    background-color: #f8f9fa; /* Light background for a modern look */
+  }
+  .card {
+    margin-top: 1.5rem;
+    border-radius: 0.75rem; /* Rounded corners for the card */
+  }
+  .card-header {
+    background-color: #007bff; /* Blue background for header */
+    color: #ffffff;
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6; /* Subtle border under header */
+  }
+  .card-body {
+    padding: 1.5rem;
+    background-color: #ffffff; /* White background for the card body */
+  }
+  .table thead th {
+    background-color: #e9ecef; /* Light grey background for table header */
+  }
+  .table tbody tr:hover {
+    background-color: #f1f1f1; /* Light grey background on row hover */
+  }
+  .badge {
+    font-size: 0.875rem; /* Slightly smaller font size for badges */
+  }
+  .btn-sm {
+    font-size: 0.75rem; /* Slightly smaller font size for buttons */
+  }
+</style>
+</head>
+
+<body>
+{% if data %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Order Summary</h2>
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for i in data %}
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header text-center">
+          Order #{{ forloop.counter }}
+        </div>
+        <div class="card-body">
+          <p><strong>Date:</strong> {{ i.order_date }}</p>
+          <p><strong>Dealer:</strong> {{ i.DEALER.dealer_name }}<br>{{ i.DEALER.phone_number }}</p>
+          <p><strong>Amount:</strong> ₹{{ i.total_price }}</p>
+          <p><strong>Status:</strong>
+            {% if i.status == 'Delivered' %}
+              <span class="badge bg-success">Delivered</span>
+            {% elif i.status == 'Offline' or i.status == 'Online' %}
+              <span class="badge bg-info">{{ i.status }}</span>
+            {% elif i.status == 'pending' %}
+              <span class="badge bg-warning">Pending</span>
+            {% else %}
+              <span class="badge bg-secondary">{{ i.status }}</span>
+            {% endif %}
+          </p>
+          <p>
+            <a href="/view_requested_item/{{ i.id }}#contents" class="btn btn-outline-info btn-sm">View Items</a>
+          </p>
+          <p>
+            {% if i.status != 'Delivered' and i.status != 'Offline' and i.status != 'Online' %}
+              <a href="/cancel/{{ i.id }}#contents" class="btn btn-danger btn-sm">Cancel</a>
+            {% endif %}
+            {% if i.status == 'pending' %}
+              {% if i.stockcount == "1" %}
+                <span class="badge bg-danger">Out of Stock</span>
+              {% else %}
+                <a href="/payment_method/{{ i.id }}/{{ i.total_price }}#contents" class="btn btn-success btn-sm">Make Payment</a>
+              {% endif %}
+            {% endif %}
+            <a href="/send_Review/{{ i.DEALER.id }}#contents" class="btn btn-primary btn-sm mt-2">Send Review</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% else %}
+ <center><img src="/static/main/assets/img/shopping-cart.png" alt="Not found"></center>
+{% endif %}
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}

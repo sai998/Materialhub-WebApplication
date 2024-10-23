@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - www.codingnepalweb.com -->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <link rel="stylesheet" href="/static/logintemp/style.css">
+</head>
+<body><div>
+  <div class="wrapper">
+    <form id="form1" name="form1" method="post" action="/login_post">
+      <h2>Login</h2>
+        <div class="input-field">
+        <input type="text" name="textfield"  autocomplete="off" required>
+        <label>Enter your email</label>
+      </div>
+      <div class="input-field">
+         <input type="password" name="passwd" id="passwd" required>
+        <label>Enter your password</label>
+      </div>
+      <div class="forget">
+
+        <a href="/forget" style="color: black" >Forgot password?</a>
+      </div>
+      <button type="submit">Log In</button>
+      <div class="register">
+        <p> <a href="/register" style="color: black">Dealer Register</a><a href="/client_register" style="color: black">Client Register</a></p>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

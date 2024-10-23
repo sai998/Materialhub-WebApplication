@@ -1,0 +1,92 @@
+{% extends 'dealer/home_index.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Driver</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-bottom: 1px solid #dee2e6;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .form-control {
+            border-radius: 5px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Edit Driver Information
+            </div>
+            <div class="card-body">
+                <form action="/edit_driver_post/{{ id }}" method="post">
+                    <div class="mb-3">
+                        <label for="driver_name" class="form-label">Driver Name</label>
+                        <input type="text" class="form-control" name="driver_name" id="driver_name" value="{{ view.driver_name }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control" name="email" id="email" value="{{ view.email }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone_number" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" name="phone_number" id="phone_number" value="{{ view.phone_no }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="house_name" class="form-label">House Name</label>
+                        <input type="text" class="form-control" name="house_name" id="house_name" value="{{ view.house_name }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="place" class="form-label">Place</label>
+                        <input type="text" class="form-control" name="place" id="place" value="{{ view.place }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="post" class="form-label">Post</label>
+                        <input type="text" class="form-control" name="post" id="post" value="{{ view.post }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pin" class="form-label">Pin</label>
+                        <input type="text" class="form-control" name="pin" id="pin" value="{{ view.pin }}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}

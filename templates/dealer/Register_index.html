@@ -1,0 +1,124 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dealer registration</title>
+<!-- Meta tag Keywords -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Course Registration Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Meta tag Keywords -->
+<link href="/static/register/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- js -->
+<!-- //js -->
+<!-- web-fonts -->
+<link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+<!-- //web-fonts --> 
+</head>
+<body>
+
+<div class="video"> 
+	<div class="center-container">
+	    <div class="w3ls-agileinfo">
+		</div>
+		 <div class="bg-agile">
+			<h2>Dealer Registration </h2>
+			<div class="login-form">	
+				<form id="form1" name="form1" method="post" action="/register_post">
+					<input type="text"  name="name" placeholder="Dealer name" required="" />
+					<input type="email"  name="email" placeholder="Email" required="" />
+					<input type="text"  name="phone" placeholder="Phone number" required="" pattern="[6-9][0-9]{9}" maxlength="10"/>
+					<input type="text"  name="license" placeholder="License number" required="" maxlength="12"/>
+					<input type="hidden"  name="latitude" placeholder="Latittude" id="textfield13" required="" />
+					<input type="hidden"  name="longitude" placeholder="Longitude" id="textfield14" required="" />
+                    <div id="gmap" style="...">
+            </div>
+					<input type="password"  name="passwd" placeholder="Password" id="password" required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters" />
+                    <input type="checkbox" id="show-password" />
+      <label for="show-password" style="color: white;font-size: 12px">Show Password</label>
+
+					<input type="submit" value="Submit">
+				</form>
+                <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const passwordInput = document.getElementById('password');
+      const showPasswordCheckbox = document.getElementById('show-password');
+
+      showPasswordCheckbox.addEventListener('change', function () {
+        if (showPasswordCheckbox.checked) {
+          passwordInput.type = 'text'; // Show password
+        } else {
+          passwordInput.type = 'password'; // Hide password
+        }
+      });
+    });
+
+
+  </script>
+			</div>	
+		</div>
+
+	</div>	
+</div>
+
+  </form>
+</body>
+</html>
+
+<style type="text/css">
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0 }
+#gmap { width: 100%; height: 270px; border: double; }
+</style>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false"></script>
+<script type="text/javascript">
+var map, marker;
+initialize();
+function initialize() {
+    var myLatlng = new google.maps.LatLng(11.868536, 75.363197);
+    var myOptions = {
+        zoom: 7,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("gmap"), myOptions);
+    marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map
+    });
+
+    google.maps.event.addListener(map, "click", function(event) {
+        var clickLat = event.latLng.lat();
+        var clickLon = event.latLng.lng();
+        document.getElementById("textfield13").value = clickLat.toFixed(5);
+        document.getElementById("textfield14").value = clickLon.toFixed(5);
+        marker.setPosition(new google.maps.LatLng(clickLat, clickLon));
+    });
+
+    GetMylocation();
+}
+
+function GetMylocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+
+function showPosition(position) {
+    var lat = position.coords.latitude;
+    var lon = position.coords.longitude;
+    document.getElementById("textfield13").value = lat;
+    document.getElementById("textfield14").value = lon;
+
+    var myLatlng = new google.maps.LatLng(lat, lon);
+    map.setCenter(myLatlng);
+    map.setZoom(14);
+    marker.setPosition(myLatlng);
+}
+</script>

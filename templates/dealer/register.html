@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body><center>
+<table width="200" border="1">
+     {% csrf_token %}
+  <form id="form1" name="form1" method="post" action="/register_post">
+    <tr>
+      <th scope="row">Dealer name</th>
+      <td><label for="textfield9"></label>
+        <input type="text" name="name" id="textfield9" /></td>
+    </tr>
+    <tr>
+      <th scope="row">Email</th>
+      <td><label for="textfield10"></label>
+        <input type="text" name="email" id="textfield10" /></td>
+    </tr>
+    <tr>
+      <th scope="row">Phone number</th>
+      <td><label for="textfield11"></label>
+        <input type="text" name="phone" id="textfield11" /></td>
+    </tr>
+    <tr>
+      <th scope="row">License number</th>
+      <td><label for="textfield12"></label>
+        <input type="text" name="license" id="textfield12" /></td>
+    </tr>
+    <tr>
+      <th scope="row">Latitude</th>
+      <td><label for="textfield13"></label>
+        <input type="text" name="latitude" id="textfield13" /></td>
+    </tr>
+    <tr>
+      <th scope="row">Longitude</th>
+      <td><label for="textfield14"></label>
+        <input type="text" name="longitude" id="textfield14" /></td>
+    </tr>
+      <tr>
+          <th>Choose location</th>
+          <td><div id="gmap" style="height: 250px;width: 250px" ></div></td>
+      </tr>
+      <tr>
+      <th scope="row">password</th>
+      <td><label for="textfield15"></label>
+        <input type="text" name="passwd" id="textfield15" /></td>
+    </tr>
+    <tr>
+      <th colspan="2" scope="row"> <input type="submit" name="button" id="button" value="REGISTER" />
+      </th>
+    </tr>
+  </form>
+</table></center>
+</body>
+</html>
+<style type="text/css">
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0 }
+#gmap { width: 100%; height: 680px; border: double; }
+</style>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false"></script>
+<script type="text/javascript">
+var map, marker;
+initialize();
+function initialize() {
+    var myLatlng = new google.maps.LatLng(11.868536, 75.363197);
+    var myOptions = {
+        zoom: 7,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("gmap"), myOptions);
+    marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map
+    });
+
+    google.maps.event.addListener(map, "click", function(event) {
+        var clickLat = event.latLng.lat();
+        var clickLon = event.latLng.lng();
+        document.getElementById("textfield13").value = clickLat.toFixed(5);
+        document.getElementById("textfield14").value = clickLon.toFixed(5);
+        marker.setPosition(new google.maps.LatLng(clickLat, clickLon));
+    });
+
+    GetMylocation();
+}
+
+function GetMylocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+
+function showPosition(position) {
+    var lat = position.coords.latitude;
+    var lon = position.coords.longitude;
+    document.getElementById("textfield13").value = lat;
+    document.getElementById("textfield14").value = lon;
+
+    var myLatlng = new google.maps.LatLng(lat, lon);
+    map.setCenter(myLatlng);
+    map.setZoom(14);
+    marker.setPosition(myLatlng);
+}
+</script>

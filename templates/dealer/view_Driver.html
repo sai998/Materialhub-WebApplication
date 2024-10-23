@@ -1,0 +1,99 @@
+{% extends 'dealer/home_index.html' %}
+{% block body %}
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .table-container {
+            margin: 20px;
+        }
+        .table thead th {
+            background-color: #363c42;
+            color: #fff;
+            text-align: center;
+        }
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .table tbody tr:hover {
+            background-color: #e9ecef;
+        }
+        .btn-icon {
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            color: #fff;
+            text-decoration: none;
+        }
+        .btn-edit {
+            background-color: #ffc107;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+        }
+        .btn-edit:hover {
+            background-color: #e0a800;
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container table-container">
+        <h1 class="text-center mb-4">Driver List</h1>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">SL NO</th>
+                    <th scope="col">Driver Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">House Name</th>
+                    <th scope="col">Place</th>
+                    <th scope="col">Post</th>
+                    <th scope="col">Pin</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.driver_name }}</td>
+                    <td>{{ i.email }}</td>
+                    <td>{{ i.phone_no }}</td>
+                    <td>{{ i.house_name }}</td>
+                    <td>{{ i.place }}</td>
+                    <td>{{ i.post }}</td>
+                    <td>{{ i.pin }}</td>
+                    <td>
+                        <a href="/edit_driver/{{ i.id }}#contents" class="btn-icon btn-edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/delete_driver/{{ i.id }}" class="btn-icon btn-delete">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+{% endblock %}
